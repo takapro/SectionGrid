@@ -44,7 +44,7 @@ public class SectionGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemViewType(int position) {
         if (getSectionItemIndex(position).length == 1) {
-            return R.layout.layout_title;
+            return R.layout.layout_header;
         } else {
             return R.layout.layout_item;
         }
@@ -54,8 +54,8 @@ public class SectionGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewType == R.layout.layout_title) {
-            return new TitleViewHolder(itemView);
+        if (viewType == R.layout.layout_header) {
+            return new HeaderViewHolder(itemView);
         } else {
             return new ItemViewHolder(itemView);
         }
@@ -65,21 +65,21 @@ public class SectionGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int[] index = getSectionItemIndex(position);
         if (getSectionItemIndex(position).length == 1) {
-            ((TitleViewHolder) holder).bindSectionTitle(index[0], sectionTitles.get(index[0]));
+            ((HeaderViewHolder) holder).bindHeader(index[0], sectionTitles.get(index[0]));
         } else {
             ((ItemViewHolder) holder).bindItem(index[0], index[1], sectionItems.get(index[0]).get(index[1]));
         }
     }
 
-    public static class TitleViewHolder extends RecyclerView.ViewHolder {
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
         private TextView titleText;
 
-        public TitleViewHolder(@NonNull View itemView) {
+        public HeaderViewHolder(@NonNull View itemView) {
             super(itemView);
             titleText = itemView.findViewById(R.id.titleText);
         }
 
-        public void bindSectionTitle(int section, String title) {
+        public void bindHeader(int section, String title) {
             titleText.setText(title);
         }
     }
